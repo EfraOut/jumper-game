@@ -3,8 +3,9 @@ public class Puzzle
     private string[] wordList = {"mosaic", "bounce", "wear", "freshman", "writer", "scatter", 
     "provide", "withdrawal", "launch", "pull"};
 
-    private string[] wrongGuesses;
-    private string[] correctGuesses; 
+    private List<string> wrongGuess = new List<string>(); 
+    private List<string> correctGuess = new List<string>(); 
+    private List<string> deconstructedWord = new List<string>();    
     public int guessNum = 4;
     public string word = "";
     TerminalService ts = new TerminalService();
@@ -13,6 +14,10 @@ public class Puzzle
     {
         Random random = new Random();
         word = wordList[random.Next(0, wordList.Length - 1)];
+        for (int i = 0; i < word.Length; i++)
+        {
+            deconstructedWord.Add(word[i].ToString());
+        }
     }
 
     public void printWord()
@@ -25,14 +30,14 @@ public class Puzzle
     // Compares the user's input with the actual word
    public void compareGuess(string guess)
     {
-        for (int i = 0; i < word.Length; i++)
+        if (deconstructedWord.Contains(guess))
         {
-            if (word[i].ToString() == guess)
-            {
-                
-            ts.WriteText("It is present");
-            
-            }
+            correctGuess.Add(guess);
+        }
+        else
+        {
+            wrongGuess.Add(guess);
+            guessNum -= 1;
         }
     }
 
