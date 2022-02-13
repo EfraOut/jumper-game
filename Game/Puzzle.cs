@@ -2,35 +2,33 @@ public class Puzzle
 {
     private string[] wordList = {"mosaic", "bounce", "wear", "freshman", "writer", "scatter", 
     "provide", "withdrawal", "launch", "pull"};
-
-    private List<string> wrongGuess = new List<string>(); 
-    private List<string> correctGuess = new List<string>(); 
-    private List<string> deconstructedWord = new List<string>();    
+    private List<string> wrongGuess = new List<string>();
+    private List<string> correctGuess = new List<string>();
+    private List<string> wordOutput = new List<string>();
     public int guessNum = 4;
     public string word = "";
-    TerminalService ts = new TerminalService();
-
+    // Constructor for the Puzzle
     public Puzzle()
     {
         Random random = new Random();
         word = wordList[random.Next(0, wordList.Length - 1)];
         for (int i = 0; i < word.Length; i++)
         {
-            deconstructedWord.Add(word[i].ToString());
+            wordOutput.Add("_ ");
         }
     }
-
+    // Displays the word according to the current guesses
     public void printWord()
     {
-        for (int i = 0; i < word.Length; i++)
+        foreach (string letter in wordOutput)
         {
-            Console.Write("_ ");
+            Console.Write(letter);
         }
     }
     // Compares the user's input with the actual word
    public void compareGuess(string guess)
     {
-        if (deconstructedWord.Contains(guess))
+        if (word.Contains(guess))
         {
             correctGuess.Add(guess);
         }
@@ -40,8 +38,27 @@ public class Puzzle
             guessNum -= 1;
         }
     }
-
-    // Tells if the correct guesses are equal to the actual word
-
-
+    // Changes the output for the correct guesses
+    public void changeWord(string guess)
+    {
+        for (int i = 0; i < word.Length; i++)
+        {
+            if (word[i].ToString() == guess)
+            {
+            wordOutput[i] = guess;
+            }
+        }
+    }
+    // Tells if the word is already completed
+    public bool checkGameOver()
+    {
+        if (!wordOutput.Contains("_ "))
+        {
+            return false;
+        }
+        else
+        {
+            return true;   
+        }
+    }
 }

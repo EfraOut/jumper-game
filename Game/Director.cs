@@ -5,35 +5,34 @@ public class Director {
     TerminalService terminalService = new TerminalService();
     private string guess = "";
     private bool isPlaying = true;
-
     public Director()
     {
     }
-
     public void StartGame()
     {
-        while (isPlaying) 
+        while (isPlaying && puzzle.guessNum != 0)
         {
+             displayGame();
              GetInputs();
-            //  DoUpdates();
-             DoOutputs();
+             DoUpdates();
         }
+        jumper.drawChute(puzzle.guessNum);
+        terminalService.WriteText("The word is: " + puzzle.word);
+        terminalService.WriteText("Thank you for playing!");
     }
-
-    private void GetInputs()
+    private void displayGame()
     {
-        terminalService.WriteText(puzzle.word);
         jumper.drawChute(puzzle.guessNum);
         puzzle.printWord();
+    }
+    private void GetInputs()
+    {
         guess = terminalService.ReadText("\nEnter a letter [a-z]: ");
-        puzzle.compareGuess(guess);
-
     }
     private void DoUpdates()
     {
-
-    }
-    private void DoOutputs()
-    {
+        puzzle.compareGuess(guess);
+        puzzle.changeWord(guess);
+        isPlaying = puzzle.checkGameOver();
     }
 }
