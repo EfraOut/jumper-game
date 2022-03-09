@@ -6,7 +6,7 @@ public class Puzzle
     private List<string> correctGuess = new List<string>();
     private List<string> wordOutput = new List<string>();
     public int guessNum = 4;
-    public string word = "";
+    private string word = "";
     // Constructor for the Puzzle
     public Puzzle()
     {
@@ -16,6 +16,11 @@ public class Puzzle
         {
             wordOutput.Add("_ ");
         }
+    }
+
+    public string GetWord()
+    {
+        return word;
     }
     // Displays the word according to the current guesses
     public void printWord()
