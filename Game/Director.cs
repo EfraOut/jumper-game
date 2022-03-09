@@ -17,7 +17,7 @@ public class Director {
              DoUpdates();
         }
         jumper.drawChute(puzzle.guessNum);
-        terminalService.WriteText("The word is: " + puzzle.word);
+        terminalService.WriteText("The word is: " + puzzle.GetWord());
         terminalService.WriteText("Thank you for playing!");
     }
     private void displayGame()
